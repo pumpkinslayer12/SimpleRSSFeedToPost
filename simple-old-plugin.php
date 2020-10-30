@@ -12,7 +12,9 @@
 add_shortcode("practice_shortcode", "path_output");
 
 function path_output(){
+    $arr=array('<p>'.plugin_dir_path(__FILE__).'</p>',
+               '<p>'.plugin_dir_url(__FILE__).'</p>',
+              '<p>'.admin_url("happy-town").'</p>',);
     
-    echo '<p>'.plugin_dir_path(__FILE__).'</p>';
-    echo '<p>'.plugin_dir_url()(__FILE__).'</p>';
+    return implode("",$arr);
 }
