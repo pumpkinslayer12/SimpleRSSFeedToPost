@@ -9,12 +9,11 @@
 * Domain Path: /languages
 */
 
-add_shortcode("practice_shortcode", "path_output");
+define('PDEV_DIR',plugin_dir_path(__FILE__)); 
 
-function path_output(){
-    $arr=array('<p>'.plugin_dir_path(__FILE__).'</p>',
-               '<p>'.plugin_dir_url(__FILE__).'</p>',
-              '<p>'.admin_url("happy-town").'</p>',);
-    
-    return implode("",$arr);
-}
+add_shortcode("practice_shortcode", "path_output"); function path_output(){ $arr=array('
+    <p>'.plugin_dir_path(__FILE__).'</p>', '
+    <p>'.plugin_dir_url(__FILE__).'</p>', '
+    <p>'.admin_url("happy-town").'</p>',); 
+                                                                           
+    return implode("",$arr); }
