@@ -9,11 +9,30 @@
 * Domain Path: /languages
 */
 
-define('PDEV_DIR',plugin_dir_path(__FILE__)); 
+//Add a menu for our option page
+//WordPress hook to add to menu
+add_action('admin_menu', 'sop_plugin_add_settings_menu');
+//Function to add settings
+function sop_plugin_add_settings(){
 
-add_shortcode("practice_shortcode", "path_output"); function path_output(){ $arr=array('
-    <p>'.plugin_dir_path(__FILE__).'</p>', '
-    <p>'.plugin_dir_url(__FILE__).'</p>', '
-    <p>'.admin_url("happy-town").'</p>',); 
-                                                                           
-    return implode("",$arr); }
+    add_options_page('Simple Old Plugin Settings',
+                    'Simple Old Plugin Settings',
+                    'manage_options',
+                    'sop_plugin',
+                    'sop_plugin_option_page');
+}
+//Create actual options page 
+function sop_plugin_option_page(){
+    ?>
+<div class="wrap">
+    <h2>My Plugin</h2>
+    <form action="options.php" method="post">
+        <?php 
+    settings_fields('')
+    ?>
+    </form>
+</div>
+<?php
+}
+
+?>
