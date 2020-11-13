@@ -9,30 +9,52 @@
 * Domain Path: /languages
 */
 
-//Add a menu for our option page
-//WordPress hook to add to menu
-add_action('admin_menu', 'sop_plugin_add_settings_menu');
-//Function to add settings
-function sop_plugin_add_settings(){
+ // ------------------------------------------------------------------
+ // Add all your sections, fields and settings during admin_init
+ // ------------------------------------------------------------------
+ //
+// Register and define settings at plugin activation
 
-    add_options_page('Simple Old Plugin Settings',
-                    'Simple Old Plugin Settings',
-                    'manage_options',
+add_action('admin_init','sop_plugin_admin_init');
+
+function sop_plugin_admin_init(){
+    $args = [
+        'type' => 'string',
+        'sanitize_callback' => 'sop_plugin_validate_options',
+        'default' => NULL
+    ];
+    //Register our settings
+    register_setting('sop_plugin_options', 
+                     'sop_plugin_options',
+                    $args);
+}
+
+
+// Add a menu using admin_menu hook
+add_action('admin_menu', 'sop_plugin_add_settings_menu');
+
+function sop_plugin_add_settings_menu(){
+    
+    add_options_page('SOP plugin Settings', 
+                     'SOP Settings', 
+                     'manage_options',
                     'sop_plugin',
                     'sop_plugin_option_page');
 }
-//Create actual options page 
+
+// Create the option page
+
 function sop_plugin_option_page(){
     ?>
 <div class="wrap">
-    <h2>My Plugin</h2>
+    <h2>My plugin</h2>
     <form action="options.php" method="post">
-        <?php 
-    settings_fields('')
+        <?php
+    settings_fields('sop_plugin_options');
+    do_settings_sections('sop_plugin');
+    submit_button('Save Changes');
     ?>
     </form>
 </div>
 <?php
 }
-
-?>
