@@ -1,0 +1,12 @@
+<p id="anchor"></p>
+<script>
+    var buffer = 3500 * 100;
+
+    for (var i = 0; i < (52); i++) {
+
+        buffer += buffer * .03 - 40;
+    }
+
+    document.getElementById("anchor").innerHTML = buffer / 100;
+
+</script>
