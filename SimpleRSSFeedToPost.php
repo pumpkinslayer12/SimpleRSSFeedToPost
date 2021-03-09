@@ -8,3 +8,6 @@
 * Text Domain: SimpleRSSFeedToPost
 * Domain Path: /languages 
 */
+
+require_once('Settings/Settings.php');
+register_activation_hook(__FILE__, 'registerSettingsUI');
