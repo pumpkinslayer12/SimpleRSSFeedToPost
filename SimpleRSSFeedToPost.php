@@ -9,5 +9,7 @@
 * Domain Path: /languages 
 */
 
-require_once('Settings/Settings.php');
-register_activation_hook(__FILE__, 'registerSettingsUI');
+
+register_activation_hook(__FILE__, 'WCM_Setup_Demo_on_activation');
+register_deactivation_hook(__FILE__, 'WCM_Setup_Demo_on_deactivation');
+register_uninstall_hook(__FILE__, 'WCM_Setup_Demo_on_uninstall');
