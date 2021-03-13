@@ -1,5 +1,7 @@
 <?php
 
+namespace SimpleRSSFeedToPost;
+
 class Defaults
 {
     const AppTitle = 'Simple RSS Feed to Post';
@@ -15,7 +17,7 @@ class Defaults
 
     const UrlStub = 'URL';
     const UrlSettingSlug = self::SettingsSlug . self::UrlStub;
-    
+
     const DefaultAuthorStub = 'DefaultAuthor';
     const DefaultAuthorTitle = 'Default Author';
     const DefaultAuthorSettingSlug = self::SettingsSlug . self::DefaultAuthorStub;

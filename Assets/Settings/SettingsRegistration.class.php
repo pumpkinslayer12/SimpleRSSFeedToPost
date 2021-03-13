@@ -1,5 +1,7 @@
 <?php
 
+namespace SimpleRSSFeedToPost;
+
 class SettingsRegistration
 {
     private const AdminMenuHook = 'admin_menu';

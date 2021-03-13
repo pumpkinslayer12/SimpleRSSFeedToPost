@@ -1,16 +1,19 @@
 <?php
 
+namespace SimpleRSSFeedToPost;
+
 class SettingsUI
 {
-    private static function echoContent($content){
+    private static function echoContent($content)
+    {
         echo esc_html($content);
     }
     public static function settingsPageMarkup()
     {
         self::echoContent(
             '<div class="wrap">' .
-            '<h2>' . Defaults::AppTitle . '</h2>' .
-            '<form action="options.php" method="post">'
+                '<h2>' . Defaults::AppTitle . '</h2>' .
+                '<form action="options.php" method="post">'
         );
 
         settings_fields(Defaults::SettingsSlug);
@@ -20,14 +23,12 @@ class SettingsUI
     }
     public static function inputFieldURL($option, $optionValue)
     {
-        $htmlField = '<input id="'.$optionValue.'" name="'.$option.'["'.$optionValue.'"] type="text" value="';
+        $htmlField = '<input id="' . $optionValue . '" name="' . $option . '["' . $optionValue . '"] type="text" value="';
 
-        if (array_key_exists($optionValue, get_option($option))){
-            self::echoContent($htmlField . $option . '["'.$optionValue.'"]/>');
-        }
-        else{
-            self::echoContent($htmlField.'"/>');
-
+        if (array_key_exists($optionValue, get_option($option))) {
+            self::echoContent($htmlField . $option . '["' . $optionValue . '"]/>');
+        } else {
+            self::echoContent($htmlField . '"/>');
         }
     }
 

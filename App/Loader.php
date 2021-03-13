@@ -13,3 +13,4 @@ class Loader
         }
     }
 }
+Loader::loader();

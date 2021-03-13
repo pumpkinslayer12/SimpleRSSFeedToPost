@@ -9,7 +9,10 @@
 * Domain Path: /languages 
 */
 
+namespace SimpleRSSFeedToPost;
 
-register_activation_hook(__FILE__, 'WCM_Setup_Demo_on_activation');
-register_deactivation_hook(__FILE__, 'WCM_Setup_Demo_on_deactivation');
-register_uninstall_hook(__FILE__, 'WCM_Setup_Demo_on_uninstall');
+$appDirectory = 'App/';
+require_once($appDirectory . 'Installer.php');
+register_activation_hook(__FILE__, Installer::install());
+//register_deactivation_hook(__FILE__, 'WCM_Setup_Demo_on_deactivation');
+//register_uninstall_hook(__FILE__, 'WCM_Setup_Demo_on_uninstall');
