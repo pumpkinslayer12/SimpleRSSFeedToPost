@@ -1,4 +1,5 @@
 <?php
+namespace SimpleRSSFeedToPost;
 class RSSParser extends FeedParser
 {
   private $URI;
@@ -9,11 +10,9 @@ class RSSParser extends FeedParser
   }
   public function getFeedItems()
   {
-    try {
+    
       return $this->parseRSSFeed($this->loadRSSFeed($this->URI));
-    } catch (Exception $e) {
-      throw new Exception('There was an error loading the RSS feed in the parser. The URI is: ' . $this->URI . '. The error is: ' . $e->getMessage());
-    }
+    
   }
 
   private function loadRSSFeed()

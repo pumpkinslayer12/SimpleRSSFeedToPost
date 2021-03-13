@@ -1,5 +1,6 @@
 <?php
 
+namespace SimpleRSSFeedToPost;
 abstract class PostingSystem
 {
   public static function getPostingSystem()

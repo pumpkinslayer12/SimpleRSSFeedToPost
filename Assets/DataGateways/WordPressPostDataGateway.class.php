@@ -1,4 +1,7 @@
 <?php
+
+namespace SimpleRSSFeedToPost;
+
 class WordPressPostDataGateway
 {
 

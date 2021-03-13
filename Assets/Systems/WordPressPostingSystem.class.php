@@ -1,5 +1,7 @@
 <?php
 
+namespace SimpleRSSFeedToPost;
+
 class WordPressPostingSystem extends PostingSystem
 {
 
