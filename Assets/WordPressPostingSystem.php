@@ -2,7 +2,7 @@
 
 namespace SimpleRSSFeedToPost;
 
-class WordPressPostingSystem extends PostingSystem
+class WordPressPostingSystem
 {
 
     public function postItems($posts)

@@ -1,6 +1,8 @@
 <?php
+
 namespace SimpleRSSFeedToPost;
-class RSSParser extends FeedParser
+
+class RSSParser
 {
   private $URI;
 
@@ -10,9 +12,8 @@ class RSSParser extends FeedParser
   }
   public function getFeedItems()
   {
-    
-      return $this->parseRSSFeed($this->loadRSSFeed($this->URI));
-    
+
+    return $this->parseRSSFeed($this->loadRSSFeed($this->URI));
   }
 
   private function loadRSSFeed()

@@ -1,5 +1,7 @@
 <?php
+
 namespace SimpleRSSFeedToPost;
+
 class WordPressPostDataTemplate
 {
     const WORDPRESSPOSTAUTHOR = 'post_author';

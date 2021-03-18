@@ -11,8 +11,9 @@
 
 namespace SimpleRSSFeedToPost;
 
-$appDirectory = 'App/';
-require_once($appDirectory . 'Installer.php');
-register_activation_hook(__FILE__, Installer::install());
-//register_deactivation_hook(__FILE__, 'WCM_Setup_Demo_on_deactivation');
-//register_uninstall_hook(__FILE__, 'WCM_Setup_Demo_on_uninstall');
+require('Assets/AppDefaultValues.php');
+require('Assets/SettingsUI.php');
+require('Assets/SettingsRegistration.php');
+SettingsRegistration::registerSettingsUI();
+
+register_deactivation_hook(__FILE__, ['SettingsUI', 'unregisterSettings']);

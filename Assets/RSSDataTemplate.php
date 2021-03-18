@@ -1,5 +1,7 @@
 <?php
+
 namespace SimpleRSSFeedToPost;
+
 class RSSDataTemplate
 {
     const RSSTITLE = 'title';

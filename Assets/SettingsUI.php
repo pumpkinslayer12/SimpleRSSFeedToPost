@@ -4,31 +4,26 @@ namespace SimpleRSSFeedToPost;
 
 class SettingsUI
 {
-    private static function echoContent($content)
-    {
-        echo esc_html($content);
-    }
+
     public static function settingsPageMarkup()
     {
-        self::echoContent(
-            '<div class="wrap">' .
-                '<h2>' . Defaults::AppTitle . '</h2>' .
-                '<form action="options.php" method="post">'
-        );
+        echo '<div class="wrap"><h2>' .
+            esc_html(AppDefaultValues::AppTitle) .
+            '</h2><form action="options.php" method="post">';
 
-        settings_fields(Defaults::SettingsSlug);
-        do_settings_sections(Defaults::SectionSlug);
+        settings_fields(AppDefaultValues::SettingsSlug);
+        do_settings_sections(AppDefaultValues::SectionSlug);
         submit_button('Save Changes', 'primary');
-        self::echoContent('</form></div>');
+        echo '</form></div>';
     }
     public static function inputFieldURL($option, $optionValue)
     {
         $htmlField = '<input id="' . $optionValue . '" name="' . $option . '["' . $optionValue . '"] type="text" value="';
 
         if (array_key_exists($optionValue, get_option($option))) {
-            self::echoContent($htmlField . $option . '["' . $optionValue . '"]/>');
+            esc_html($htmlField . $option . '["' . $optionValue . '"]/>');
         } else {
-            self::echoContent($htmlField . '"/>');
+            esc_html($htmlField . '"/>');
         }
     }
 
@@ -46,28 +41,28 @@ class SettingsUI
 
     public static function sectionDescription()
     {
-        self::echoContent('<p>Please enter a valid RSS url and select a default user for imported posts.</p>');
+        echo '<p>Please enter a valid RSS url and select a default user for imported posts.</p>';
     }
 
     public static function sanitizeSettings($settings)
     {
         $validFields = [];
-        $validFields[Defaults::UrlSettingSlug] = esc_url_raw($settings[Defaults::UrlSettingSlug]);
-        $validFields[Defaults::DefaultAuthorSettingSlug] = intval($settings[Defaults::DefaultAuthorSettingSlug]);
+        $validFields[AppDefaultValues::UrlSettingSlug] = esc_url_raw($settings[AppDefaultValues::UrlSettingSlug]);
+        $validFields[AppDefaultValues::DefaultAuthorSettingSlug] = intval($settings[AppDefaultValues::DefaultAuthorSettingSlug]);
 
-        if ($validFields[Defaults::UrlSettingSlug] !== $settings[Defaults::UrlSettingSlug]) {
+        if ($validFields[UrlSettingSlug] !== $settings[AppDefaultValues::UrlSettingSlug]) {
             add_settings_error(
-                Defaults::SettingsSlug,
-                Defaults::UrlSettingSlug . 'Error',
+                AppDefaultValues::SettingsSlug,
+                AppDefaultValues::UrlSettingSlug . 'Error',
                 'Please enter a valid RSS feed url'
             );
             return $settings;
         }
 
-        if (!is_user_member_of_blog($validFields[Defaults::DefaultAuthorSettingSlug])) {
+        if (!is_user_member_of_blog($validFields[AppDefaultValues::DefaultAuthorSettingSlug])) {
             add_settings_error(
-                Defaults::SettingsSlug,
-                Defaults::DefaultAuthorSettingSlug . 'Error',
+                AppDefaultValues::SettingsSlug,
+                AppDefaultValues::DefaultAuthorSettingSlug . 'Error',
                 'Please select a valid default user'
             );
             return $settings;
