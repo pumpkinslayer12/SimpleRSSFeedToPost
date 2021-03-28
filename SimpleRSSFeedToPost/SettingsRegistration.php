@@ -6,22 +6,16 @@ class SettingsRegistration
 {
     public static function registerSettingsUI()
     {
-        if (!get_option(AppDefaultValues::installSettingSlug)) {
-            self::registerSetting();
-        }
-        add_action('admin_menu', [get_called_class(), 'addOptionsPage'], 10);
-        add_action(AppDefaultValues::AdminMenuHook, [get_called_class(), 'addSettingsSection'], 11);
-    }
-
-    private static function registerSetting()
-    {
         register_setting(
             AppDefaultValues::SettingsSlug,
             AppDefaultValues::SettingsSlug,
-            ['sanitize_callback' => ['SettingsUI', 'sanitizeSettings']]
+            ['sanitize_callback' => [SettingsUI::class, 'sanitizeSettings']]
         );
-        add_option(AppDefaultValues::installSettingSlug, 1);
+        add_action(AppDefaultValues::AdminMenuHook, [self::class, 'addOptionsPage'], 10, 0);
+        add_action(AppDefaultValues::AdminMenuHook, [self::class, 'addSettingsSection'], 11, 0);
+        add_action(AppDefaultValues::UpdateSettingsOptionHook, [ProcessFeed::class, 'processRSSFeedAsWordPressPost']);
     }
+
     public static function addOptionsPage()
     {
         add_options_page(
@@ -29,41 +23,41 @@ class SettingsRegistration
             AppDefaultValues::SettingsTitle,
             AppDefaultValues::MinimumAccessCapability,
             AppDefaultValues::SettingsSlug,
-            ['SettingsUI', 'settingsPageMarkup']
+            [SettingsUI::class, 'settingsPageMarkup']
         );
     }
     public static function addSettingsSection()
     {
-
         add_settings_section(
-            AppDefaultValues::SectionSlug,
-            AppDefaultValues::SectionTitle,
+            AppDefaultValues::SettingsSlug,
+            AppDefaultValues::SettingsTitle,
             [SettingsUI::class, 'sectionDescription'],
             AppDefaultValues::SettingsSlug
         );
         add_settings_field(
             AppDefaultValues::UrlSettingSlug,
-            AppDefaultValues::UrlSettingSlug,
+            AppDefaultValues::UrlSettingsTitle,
             [SettingsUI::class, 'inputFieldURL'],
             AppDefaultValues::SettingsSlug,
-            AppDefaultValues::SectionSlug,
+            AppDefaultValues::SettingsSlug,
             [AppDefaultValues::SettingsSlug, AppDefaultValues::UrlSettingSlug]
         );
+
         add_settings_field(
             AppDefaultValues::DefaultAuthorSettingSlug,
             AppDefaultValues::DefaultAuthorTitle,
-            [SettingsUISettingsUI::class, 'defaultUserListing'],
+            [SettingsUI::class, 'defaultUserListing'],
             AppDefaultValues::SettingsSlug,
-            AppDefaultValues::SectionSlug,
+            AppDefaultValues::SettingsSlug,
             [AppDefaultValues::SettingsSlug, AppDefaultValues::DefaultAuthorSettingSlug]
         );
     }
 
     public static function unregisterSettingsUI()
     {
-        remove_action(AppDefaultValues::AdminMenuHook, [get_called_class(), 'addOptionsPage'], 10);
-        remove_action(AppDefaultValues::AdminMenuHook, [get_called_class(), 'addSettingsSection'], 11);
-        delete_option(AppDefaultValues::installSettingSlug);
+        remove_action(AppDefaultValues::AdminMenuHook, [self::class, 'addOptionsPage'], 10);
+        remove_action(AppDefaultValues::AdminMenuHook, [self::class, 'addSettingsSection'], 11);
         unregister_setting(AppDefaultValues::SettingsSlug, AppDefaultValues::SettingsSlug);
+        delete_option(AppDefaultValues::SettingsSlug);
     }
 }

@@ -11,9 +11,8 @@
 
 namespace SimpleRSSFeedToPost;
 
-require('Assets/AppDefaultValues.php');
-require('Assets/SettingsUI.php');
-require('Assets/SettingsRegistration.php');
+require(__NAMESPACE__ . DIRECTORY_SEPARATOR . 'Loader.php');
 SettingsRegistration::registerSettingsUI();
-
-register_deactivation_hook(__FILE__, ['SettingsUI', 'unregisterSettings']);
+ProcessFeed::scheduleProcessFeed();
+register_deactivation_hook(__FILE__, [SettingsRegistration::class, 'unregisterSettingsUI']);
+register_deactivation_hook(__FILE__, [ProcessFeed::class, 'scheduleProcessFeed']);
