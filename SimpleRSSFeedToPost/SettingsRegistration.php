@@ -6,6 +6,9 @@ class SettingsRegistration
 {
     public static function registerSettingsUI()
     {
+        if (!get_option(AppDefaultValues::SettingsSlug)) {
+            add_option(AppDefaultValues::SettingsSlug, []);
+        }
         register_setting(
             AppDefaultValues::SettingsSlug,
             AppDefaultValues::SettingsSlug,
@@ -13,7 +16,7 @@ class SettingsRegistration
         );
         add_action(AppDefaultValues::AdminMenuHook, [self::class, 'addOptionsPage'], 10, 0);
         add_action(AppDefaultValues::AdminMenuHook, [self::class, 'addSettingsSection'], 11, 0);
-        add_action(AppDefaultValues::UpdateSettingsOptionHook, [ProcessFeed::class, 'processRSSFeedAsWordPressPost']);
+        add_action(AppDefaultValues::UpdateSettingsOptionHook, [ProcessFeed::class, 'runAfterSaveProcessRSSFeedAsWordPressPost'], 10, 2);
     }
 
     public static function addOptionsPage()
@@ -57,6 +60,7 @@ class SettingsRegistration
     {
         remove_action(AppDefaultValues::AdminMenuHook, [self::class, 'addOptionsPage'], 10);
         remove_action(AppDefaultValues::AdminMenuHook, [self::class, 'addSettingsSection'], 11);
+        remove_action(AppDefaultValues::UpdateSettingsOptionHook, [ProcessFeed::class, 'runAfterSaveProcessRSSFeedAsWordPressPost'], 10);
         unregister_setting(AppDefaultValues::SettingsSlug, AppDefaultValues::SettingsSlug);
         delete_option(AppDefaultValues::SettingsSlug);
     }

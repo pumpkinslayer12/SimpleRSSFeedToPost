@@ -4,13 +4,13 @@ namespace SimpleRSSFeedToPost;
 
 class RSSParser
 {
-  const RSSTitle = 'title';
-  const RSSPubDate = 'pubDate';
-  const RSSPubDateFormat = 'D, d M Y H:i:s';
-  const RSSGuid = 'guid';
-  const RSSDescription = 'description';
-  const RSSContent = 'content';
-  const RSSCreator = 'creator';
+  const Title = 'title';
+  const PubDate = 'pubDate';
+  const PubDateFormat = 'D, d M Y H:i:s';
+  const Guid = 'guid';
+  const Description = 'description';
+  const Content = 'content';
+  const Creator = 'creator';
 
   public static function getFeedItems($URI)
   {
@@ -29,11 +29,11 @@ class RSSParser
   private static function parseRSSFeedItem($feedItem)
   {
     return [
-      self::RSSTitle => empty($feedItem->title) ? '' : (string)$feedItem->title,
-      self::RSSPubDate => empty($feedItem->pubDate) ? date(self::RSSPubDateFormat) : (string)$feedItem->pubDate,
-      self::RSSGuid => empty($feedItem->guid) ? '' : (string)$feedItem->guid,
-      self::RSSDescription => empty($feedItem->description) ? '' : (string)$feedItem->description,
-      self::RSSContent => empty($feedItem->children(self::RSSContent, true)->encoded) ? '' : (string)$feedItem->children(self::RSSContent, true)->encoded
+      self::Title => empty($feedItem->title) ? '' : (string)$feedItem->title,
+      self::PubDate => empty($feedItem->pubDate) ? date(self::PubDateFormat) : (string)$feedItem->pubDate,
+      self::Guid => empty($feedItem->guid) ? '' : (string)$feedItem->guid,
+      self::Description => empty($feedItem->description) ? '' : (string)$feedItem->description,
+      self::Content => empty($feedItem->children(self::Content, true)->encoded) ? '' : (string)$feedItem->children(self::Content, true)->encoded
     ];
   }
 }

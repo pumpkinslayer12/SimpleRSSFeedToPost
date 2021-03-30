@@ -22,7 +22,8 @@ class SettingsUI
     }
     public static function inputFieldURL()
     {
-        $options = get_option(AppDefaultValues::SettingsSlug, [AppDefaultValues::UrlSettingSlug => '']);
+        $options = get_option(AppDefaultValues::SettingsSlug);
+        
         if (array_key_exists(AppDefaultValues::UrlSettingSlug, $options)) {
             $fieldInitialValue = $options[AppDefaultValues::UrlSettingSlug];
         } else {
@@ -39,7 +40,7 @@ class SettingsUI
 
     public static function defaultUserListing()
     {
-        $options = get_option(AppDefaultValues::SettingsSlug, []);
+        $options = get_option(AppDefaultValues::SettingsSlug);
 
         if (array_key_exists(AppDefaultValues::DefaultAuthorSettingSlug, $options)) {
             $fieldInitialValue = $options[AppDefaultValues::DefaultAuthorSettingSlug];

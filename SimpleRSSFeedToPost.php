@@ -15,4 +15,4 @@ require(__NAMESPACE__ . DIRECTORY_SEPARATOR . 'Loader.php');
 SettingsRegistration::registerSettingsUI();
 ProcessFeed::scheduleProcessFeed();
 register_deactivation_hook(__FILE__, [SettingsRegistration::class, 'unregisterSettingsUI']);
-register_deactivation_hook(__FILE__, [ProcessFeed::class, 'scheduleProcessFeed']);
+register_deactivation_hook(__FILE__, [ProcessFeed::class, 'unscheduleProcessFeed']);
